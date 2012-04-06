@@ -1,7 +1,4 @@
 
-
-
-
 # return successfully obtained d3_key else nil
 #  @param blizzard_screen_name - screen name tweet must be from to contain key
 #  @param tweet_screen_name - tweeter's screen name
