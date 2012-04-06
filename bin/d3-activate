@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
+Dir.chdir ".."
+
+require "twitter_stream"
+
+TWITTER_LOGIN = File.read "twitter_login"
+
+TRACK_TOPICS = "BlizzardCS,cpkfolief,soccer"
+
+twitter_stream TWITTER_LOGIN, TRACK_TOPICS do |screen_name, text|
+  $stdout.print "#{screen_name}: #{text}\n"
+  $stdout.flush
+  false
+end
+
