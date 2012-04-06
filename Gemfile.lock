@@ -1,0 +1,18 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    eventmachine (0.12.10)
+    http_parser.rb (0.5.3)
+    json (1.6.6)
+    simple_oauth (0.1.5)
+    twitter-stream (0.1.14)
+      eventmachine (>= 0.12.8)
+      http_parser.rb (~> 0.5.1)
+      simple_oauth (~> 0.1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  json
+  twitter-stream
