@@ -2,4 +2,5 @@
 source "http://rubygems.org"
 
 gem "twitter-stream"
+gem "json"
 
