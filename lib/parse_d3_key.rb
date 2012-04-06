@@ -11,11 +11,7 @@ def get_d3_key blizzard_screen_name, tweet_screen_name, tweet_text
 end
 
 
-KEY_PATTERN = /(?<key>([a-zA-Z0-9]{4}[^a-zA-Z0-9]*){5})/ # i.e. five alphanumeric quartets in a row, separated by anything except additional alphanumerics
-
-# TODO - test this works on four hextets... and everything inbetween
-
-# TODO - ensure this works on a key embedded in a sentence... don't want to get first half of the key. Shit this is probably difficult without knowing final format
+KEY_PATTERN = /(?<key>[a-zA-Z0-9]{6}-*[a-zA-Z0-9]{4}-*[a-zA-Z0-9]{6}-*[a-zA-Z0-9]{4}-*[a-zA-Z0-9]{6})/
 
 # TODO - test match nil
 
