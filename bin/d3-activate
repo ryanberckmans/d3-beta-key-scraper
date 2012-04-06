@@ -4,14 +4,19 @@ $:.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
 Dir.chdir ".."
 
 require "twitter_stream"
+require "parse_d3_key"
 
 TWITTER_LOGIN = File.read "twitter_login"
 
 TRACK_TOPICS = "BlizzardCS,cpkfolief,soccer"
 
+BLIZZARD_SCREEN_NAME = "BlizzardCS"
+
+d3_key = nil
+
 twitter_stream TWITTER_LOGIN, TRACK_TOPICS do |screen_name, text|
   $stdout.print "#{screen_name}: #{text}\n"
   $stdout.flush
-  false
+  Random.rand(20) < 1
 end
 
