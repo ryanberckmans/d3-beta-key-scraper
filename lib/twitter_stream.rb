@@ -1,13 +1,32 @@
 require 'twitter/json_stream'
 require 'json'
 
+
+# private. if json_item is a tweet, yield the screen_name/tweet_text and stop the event loop if block returns true
+#
+#  @param event_machine - reference to EventMachine module, injectable for testing
+#  @param json_item - parse json_item and look for "screen_name" and "text" attribs
+#  @yields screen_name,tweet_text if json_item is a tweet
+
+#  Stop EM loop if block returns true.
+#
+#  @return nil
+def yield_if_tweet event_machine, json_item, &block
+  raise "expecting a block" unless block_given?
+  parsed_item = JSON.parse json_item rescue nil
+  screen_name = parsed_item['user']['screen_name'] rescue nil
+  tweet_text = parsed_item["text"] rescue nil
+  event_machine::stop_event_loop if screen_name and tweet_text and yield screen_name, tweet_text
+  nil
+end
+
 # synchronously consume a twitter stream, returning when yield returns true
 #  @param twitter_login - credentials to access stream "USER:PASS"
 #  @param track - topics to filter stream for e.g. "soccer,BlizzardCS"
-#  @yields screen_name, text - screen_name (i.e. from field) and text of each received tweet
+#  @yields screen_name, tweet_text - screen_name (i.e. from field) and tweet_text of each received tweet
 #
 #  @return nil 
-def twitter_stream(twitter_login, track)
+def twitter_stream(twitter_login, track, &block)
   raise "expecting a block" unless block_given?
   
   EventMachine::run do
@@ -18,10 +37,7 @@ def twitter_stream(twitter_login, track)
                                          )
 
     stream.each_item do |json_item|
-      parsed_item = JSON.parse json_item rescue nil
-      screen_name = parsed_item['user']['screen_name'] rescue nil
-      text = parsed_item["text"] rescue nil
-      EventMachine::stop_event_loop if screen_name and text and yield screen_name, text
+      yield_if_tweet EventMachine, json_item, &block
     end
 
     stream.on_error do |message|
