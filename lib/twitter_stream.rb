@@ -26,7 +26,7 @@ end
 #  @yields screen_name, tweet_text - screen_name (i.e. from field) and tweet_text of each received tweet
 #
 #  @return nil 
-def twitter_stream(twitter_login, track, &block)
+def twitter_stream twitter_login, track, &block
   raise "expecting a block" unless block_given?
   
   EventMachine::run do
