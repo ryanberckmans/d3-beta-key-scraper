@@ -18,5 +18,5 @@ def get_d3_key_from_twitter twitter_login, stream_filter, blizzard_screen_name
       false # false continues twitter stream
     end
   end
-  d3_key
+  d3_key.gsub /[^a-zA-Z0-9]/, ''
 end
