@@ -23,6 +23,7 @@ TEXTS = [
          "\t#{KEY_PLACEHOLDER}\t",
          "the key is: #{KEY_PLACEHOLDER}",
          "We're pleased to announce the winning key: \"#{KEY_PLACEHOLDER}\"!!!   omg",
+         "We're pleased to announce the winning \nkey: \n#{KEY_PLACEHOLDER}\"\n!!! \n  omg",
          "- #{KEY_PLACEHOLDER} -",
         ]
 VALID_KEYS = [
@@ -34,6 +35,7 @@ VALID_KEYS = [
               "79zdfJ 1234 abcXXX XXXX XXXXXX",
               "79zdfJ   -  1234 \t  abcXXX    XXXX   XXXXXX",
               "79zdfJ1234-abcXXX -- XXXX - XXXXXX",
+              "79zdfJ1234- \n abcXXX -- \t XXXX - \n\n XXXXXX",
              ]
 INVALID_KEYS = [
                 "79zdfJ-1234-abcXXX-!XXX-XXXXXX",
