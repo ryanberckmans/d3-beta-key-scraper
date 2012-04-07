@@ -3,20 +3,18 @@
 $:.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
 Dir.chdir ".."
 
-require "twitter_stream"
-require "parse_d3_key"
+require "get_d3_key_from_twitter"
 
 TWITTER_LOGIN = File.read "twitter_login"
 
-TRACK_TOPICS = "BlizzardCS,cpkfolief,soccer"
+TRACK_TOPICS = "track=BlizzardCS,cpkfolief,RyanBerckmans,soccer"
 
-BLIZZARD_SCREEN_NAME = "BlizzardCS"
+BLIZZARDCS_ID = "174307074"
+RYAN_BERCKMANS_ID = "546460454"
+FOLLOW_USERS = "follow=" + BLIZZARDCS_ID + "," + RYAN_BERCKMANS_ID
 
-d3_key = nil
+BLIZZARD_SCREEN_NAME = "RyanBerckmans"
 
-twitter_stream TWITTER_LOGIN, TRACK_TOPICS do |screen_name, text|
-  $stdout.print "#{screen_name}: #{text}\n"
-  $stdout.flush
-  Random.rand(20) < 1
-end
+d3_key = get_d3_key_from_twitter TWITTER_LOGIN, FOLLOW_USERS, BLIZZARD_SCREEN_NAME
+puts "exiting with d3 key: #{d3_key}"
 
