@@ -20,10 +20,11 @@ def yield_if_tweet event_machine, json_item, &block
   nil
 end
 
-# synchronously consume a twitter stream, returning when yield returns true
+# synchronously consume a twitter stream and pass each received json_item to yield_if_tweet
+#
 #  @param twitter_login - credentials to access stream "USER:PASS"
-#  @param track - topics to filter stream for e.g. "soccer,BlizzardCS"
-#  @yields screen_name, tweet_text - screen_name (i.e. from field) and tweet_text of each received tweet
+#  @param track - comma-delimited topics to filter stream for e.g. "soccer,BlizzardCS"
+#  @param block - block passed to yield_if_tweet with each json
 #
 #  @return nil 
 def twitter_stream twitter_login, track, &block
