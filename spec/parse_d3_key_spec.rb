@@ -47,7 +47,7 @@ def generate_tests
     BLIZZARD_SCREEN_NAMES.x TEXT_SCREEN_NAMES.x TEXTS.x KEYS
     expected = get_d3_key_expected_result blizzard_screen_name, text_screen_name, text, key
     test_description = "tuple: blizzard_screen_name: '#{blizzard_screen_name}', text_screen_name: '#{text_screen_name}', text: '#{text}', key: '#{key}' (expected: '#{expected}')"
-    puts "scheduling test #{test_description}"
+    #puts "scheduling test #{test_description}"
     generate_one_test test_description, blizzard_screen_name, text_screen_name, text, key, expected
   end
 end
