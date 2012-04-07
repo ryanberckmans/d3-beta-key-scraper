@@ -18,18 +18,28 @@ TEXT_SCREEN_NAMES = BLIZZARD_SCREEN_NAMES
 TEXTS = [
          nil,
          "#{KEY_PLACEHOLDER}",
+         "#{KEY_PLACEHOLDER}!",
+         "$$#{KEY_PLACEHOLDER}$",
+         "\t#{KEY_PLACEHOLDER}\t",
          "the key is: #{KEY_PLACEHOLDER}",
          "We're pleased to announce the winning key: \"#{KEY_PLACEHOLDER}\"!!!   omg",
-         "-#{KEY_PLACEHOLDER}---", "  #{KEY_PLACEHOLDER} -",
+         "- #{KEY_PLACEHOLDER} -",
         ]
 VALID_KEYS = [
               "79zdfJ-1234-abcXXX-XXXX-XXXXXX",
               "79zdfJ1234-abcXXX--XXXX---XXXXXX",
               "1234567890abcdeedcba123GHT",
               "1234567890abcdeedcba123GHT",
-              "79zdfJ-1234-abcXXX-XXXX-XXXXXX"
+              "79zdfJ-1234-abcXXX-XXXX-XXXXXX",
+              "79zdfJ 1234 abcXXX XXXX XXXXXX",
+              "79zdfJ   -  1234 \t  abcXXX    XXXX   XXXXXX",
+              "79zdfJ1234-abcXXX -- XXXX - XXXXXX",
              ]
 INVALID_KEYS = [
+                "79zdfJ-1234-abcXXX-!XXX-XXXXXX",
+                "a79zdfJ-1234-abcXXX-XXXX-XXXXXX",
+                "79zdfJ-1234-abcXXX-XXXX-XXXXXX-b",
+                "79zdfJ-1234-abcXXX-XXX-b",
                ]
 KEYS = VALID_KEYS + INVALID_KEYS
 

@@ -12,7 +12,7 @@ end
 
 
 # diablo 3 beta key format: 6-4-6-4-6 alphanumeric characters (length 26)
-KEY_PATTERN = /(?<key>[a-zA-Z0-9]{6}-*[a-zA-Z0-9]{4}-*[a-zA-Z0-9]{6}-*[a-zA-Z0-9]{4}-*[a-zA-Z0-9]{6})/
+KEY_PATTERN = /(^|[^a-zA-Z0-9-])(?<key>[a-zA-Z0-9]{6}[\s-]*[a-zA-Z0-9]{4}[\s-]*[a-zA-Z0-9]{6}[\s-]*[a-zA-Z0-9]{4}[\s-]*[a-zA-Z0-9]{6})($|[^a-zA-Z0-9-])/
 # TODO allow whitespace or dashes between char groups
 
 
