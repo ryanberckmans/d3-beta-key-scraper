@@ -23,16 +23,16 @@ end
 # synchronously consume a twitter stream and pass each received json_item to yield_if_tweet
 #
 #  @param twitter_login - credentials to access stream "USER:PASS"
-#  @param track - comma-delimited topics to filter stream for e.g. "soccer,BlizzardCS"
+#  @param content - querystring to pass to twitter's filter.json
 #  @param block - block passed to yield_if_tweet with each json
 #
 #  @return nil 
-def twitter_stream twitter_login, track, &block
+def twitter_stream twitter_login, content, &block
   raise "expecting a block" unless block_given?
   
   EventMachine::run do
     stream = Twitter::JSONStream.connect(
-                                         :path    => "/1/statuses/filter.json?track=#{track}",
+                                         :path    => "/1/statuses/filter.json?#{content}",
                                          :auth    => twitter_login,
                                          :ssl     => true,
                                          )
