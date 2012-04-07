@@ -13,7 +13,7 @@ BLIZZARDCS_ID = "174307074"
 RYAN_BERCKMANS_ID = "546460454"
 FOLLOW_USERS = "follow=" + BLIZZARDCS_ID + "," + RYAN_BERCKMANS_ID
 
-BLIZZARD_SCREEN_NAME = "RyanBerckmans"
+BLIZZARD_SCREEN_NAME = "RyanBerckmans" # "BlizzardCS"
 
 d3_key = D3KeyFromTwitter.new.get_d3_key_from_twitter TWITTER_LOGIN, FOLLOW_USERS, BLIZZARD_SCREEN_NAME
 puts "exiting with d3 key: #{d3_key}"
