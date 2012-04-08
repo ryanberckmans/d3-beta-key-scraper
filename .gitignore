@@ -1,3 +1,5 @@
 twitter_login
 battlenet_user
 battlenet_pass
+tmp/*
+log/*
