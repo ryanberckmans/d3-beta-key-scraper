@@ -4,10 +4,12 @@ $:.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
 Dir.chdir ".."
 
 require "get_d3_key_from_twitter"
+require "post_d3_key"
 
 TWITTER_LOGIN = File.read "twitter_login"
 
-TRACK_TOPICS = "track=BlizzardCS,cpkfolief,RyanBerckmans,soccer"
+BATTLENET_USER = File.read "battlenet_user"
+BATTLENET_PASS = File.read "battlenet_pass"
 
 BLIZZARDCS_ID = "174307074"
 RYAN_BERCKMANS_ID = "546460454"
@@ -16,5 +18,5 @@ FOLLOW_USERS = "follow=" + BLIZZARDCS_ID + "," + RYAN_BERCKMANS_ID
 BLIZZARD_SCREEN_NAME = "RyanBerckmans" # "BlizzardCS"
 
 d3_key = D3KeyFromTwitter.new.get_d3_key_from_twitter TWITTER_LOGIN, FOLLOW_USERS, BLIZZARD_SCREEN_NAME
-puts "exiting with d3 key: #{d3_key}"
-
+post_d3_key BATTLENET_USER, BATTLENET_PASS, d3_key
+puts "posted d3_key #{d3_key}"
