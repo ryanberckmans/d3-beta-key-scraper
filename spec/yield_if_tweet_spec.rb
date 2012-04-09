@@ -22,16 +22,11 @@ TWEET_JSONS = INVALID_TWEET_JSONS + VALID_TWEET_JSONS
 
 TWEET_JSONS.each { |tweet_json| JSON.parse tweet_json unless tweet_json.nil? } # sanity, make sure TWEET_JSONS are parsable
 
-BLOCK_RETURN_VALUES = [
-                       false,
-                       true,
-                      ]
-
 ######################################
 # functions to generate tests
 
 # setup mock expectations for given test data
-def yield_if_tweet_expected_result event_machine, tweet_json, block, block_return_value
+def yield_if_tweet_expected_result event_machine, tweet_json, block
   if VALID_TWEET_JSONS.include? tweet_json
     tweet = JSON.parse tweet_json
     block.should_receive(:call).with(
@@ -39,32 +34,27 @@ def yield_if_tweet_expected_result event_machine, tweet_json, block, block_retur
                                      tweet['text'],
                                      tweet['created_at']
                                      ).once
-    if block_return_value
-      event_machine.should_receive(:stop_event_loop).with(no_args).once
-    else
-      event_machine.should_not_receive :stop_event_loop
-    end
   else
     block.should_not_receive :call
-    event_machine.should_not_receive :stop_event_loop
   end
+  event_machine.should_not_receive :stop_event_loop # legacy. ensure EventMachine::stop_event_loop isn't called (it used to be)
 end
 
 # generates one test for each tuple in the cartesian product of test data
 def generate_tests
-  for tweet_json, block_return_value in TWEET_JSONS.x BLOCK_RETURN_VALUES
-    test_description = "tweet_json: '#{tweet_json}', block_return_value: '#{block_return_value.to_s}'"
-    #puts "scheduling test #{test_description}"
-    generate_one_test test_description, tweet_json, block_return_value
+  for tweet_json in TWEET_JSONS
+    test_description = "tweet_json: '#{tweet_json}'"
+    puts "scheduling test #{test_description}"
+    generate_one_test test_description, tweet_json
   end
 end
 
-def generate_one_test test_description, tweet_json, block_return_value
+def generate_one_test test_description, tweet_json
   it test_description do
     event_machine = double "event_machine"
     block = double "block"
-    yield_if_tweet_expected_result event_machine, tweet_json, block, block_return_value
-    yield_if_tweet( event_machine, tweet_json ) { |*args| block.call *args; block_return_value }
+    yield_if_tweet_expected_result event_machine, tweet_json, block
+    yield_if_tweet( event_machine, tweet_json ) { |*args| block.call *args; nil }
   end
 end
 
