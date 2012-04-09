@@ -25,4 +25,6 @@ We were too slow. We scraped and posted the key, but someone else beat us to it 
 * post the key immediately, instead of stopping eventmachine first
 * maintain a logged-in battle.net/account session, instead of logging in, each time, before posting the key
 
+### Day 1 follow-up
+After the Day 1 action items, the key scrape-to-post time was reduced ~50% from ~3s to ~1-1.5s. These times are on a netbook over wifi on a Canadian isp ;), but should have a similar relative effect on ec2. Hopefully these upgrades will make the bot competitive tomorrow :).
 
