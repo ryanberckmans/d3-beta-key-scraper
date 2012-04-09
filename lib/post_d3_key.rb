@@ -16,6 +16,6 @@ def post_d3_key account_name, password, d3_key
   
   `curl --user-agent "#{USER_AGENT}" -v -L --cookie-jar tmp/cookie -d "accountName=#{account_name}&password=#{password}&persistLogin=on" https://us.battle.net/login/en/ 2>&1 >> #{log_file}`
   `curl --user-agent "#{USER_AGENT}" -v --cookie tmp/cookie --cookie-jar tmp/cookie2 -d "gameKey=#{d3_key}" https://us.battle.net/account/management/add-game.html  2>&1 >> #{log_file}`
-  puts "posted d3 key: #{d3_key}"
+  puts "posted d3 key: #{d3_key}, now: #{Time.now.to_s}"
   nil
 end
