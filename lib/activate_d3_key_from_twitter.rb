@@ -19,7 +19,7 @@ class D3KeyFromTwitter
       puts "#{screen_name}: #{tweet_text}\n"
       d3_key = parse_d3_key blizzard_screen_name, screen_name, tweet_text
       if d3_key
-        puts "found d3 key: #{d3_key}, created_at (server time): #{created_at}, now: #{Time.now.to_s}"
+        puts "found d3 key: #{d3_key}, created_at (server time): #{created_at}, scraped_at: #{Time.now.to_s}"
         d3_key_stripped = d3_key.gsub /[^a-zA-Z0-9]/, ''
         post_d3_key battlenet_user, battlenet_password, d3_key_stripped
         true # true ends twitter stream
