@@ -6,15 +6,16 @@ require "twitter_stream"
 # test data to generate tests
 
 VALID_TWEET_JSONS = [
-                     '{ "text": "this is the tweet text", "user": { "screen_name": "bob" } }', # valid
+                     '{ "text": "this is the tweet text", "created_at": "some_date", "user": { "screen_name": "bob" } }', # valid
              ]
 
 INVALID_TWEET_JSONS = [
                        nil,
                        '{}',
-                       '{ "user": { "screen_name": "bob" }}', # invalid - no text
-                       '{ "text": "this is the tweet text" }', # invalid - no user
-                       '{ "text": "this is the tweet text", "user": {} }', # invalid - no screen name
+                       '{ "user": { "screen_name": "bob" }}', # invalid - no text, created_at
+                       '{ "text": "this is the tweet text" }', # invalid - no user, created_at
+                       '{ "text": "this is the tweet text", "user": {} }', # invalid - no screen name, created_at
+                       '{ "text": "this is the tweet text", "user": { "screen_name": "bob" } }', # no created_at
                       ]
 
 TWEET_JSONS = INVALID_TWEET_JSONS + VALID_TWEET_JSONS
@@ -32,7 +33,12 @@ BLOCK_RETURN_VALUES = [
 # setup mock expectations for given test data
 def yield_if_tweet_expected_result event_machine, tweet_json, block, block_return_value
   if VALID_TWEET_JSONS.include? tweet_json
-    block.should_receive(:call).with(instance_of(String), instance_of(String)).once
+    tweet = JSON.parse tweet_json
+    block.should_receive(:call).with(
+                                     tweet['user']['screen_name'],
+                                     tweet['text'],
+                                     tweet['created_at']
+                                     ).once
     if block_return_value
       event_machine.should_receive(:stop_event_loop).with(no_args).once
     else
@@ -58,7 +64,7 @@ def generate_one_test test_description, tweet_json, block_return_value
     event_machine = double "event_machine"
     block = double "block"
     yield_if_tweet_expected_result event_machine, tweet_json, block, block_return_value
-    yield_if_tweet( event_machine, tweet_json ) { |screen_name,tweet_text| block.call screen_name, tweet_text; block_return_value }
+    yield_if_tweet( event_machine, tweet_json ) { |*args| block.call *args; block_return_value }
   end
 end
 

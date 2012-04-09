@@ -2,11 +2,11 @@ require 'twitter/json_stream'
 require 'json'
 
 
-# private. if json_item is a tweet, yield the screen_name/tweet_text and stop the event loop if block returns true
+# private. if json_item is a tweet, yield the screen_name/tweet_text/created_at and stop the event loop if block returns true
 #
 #  @param event_machine - reference to EventMachine module, injectable for testing
-#  @param json_item - parse json_item and look for "screen_name" and "text" attribs
-#  @yields screen_name,tweet_text if json_item is a tweet
+#  @param json_item - parse json_item and look for "screen_name", "text", and "created_at" attribs
+#  @yields screen_name,tweet_text,created_at if json_item is a tweet
 
 #  Stop EM loop if block returns true.
 #
@@ -14,9 +14,11 @@ require 'json'
 def yield_if_tweet event_machine, json_item, &block
   raise "expecting a block" unless block_given?
   parsed_item = JSON.parse json_item rescue nil
+  puts parsed_item
   screen_name = parsed_item['user']['screen_name'] rescue nil
-  tweet_text = parsed_item["text"] rescue nil
-  event_machine::stop_event_loop if screen_name and tweet_text and yield screen_name, tweet_text
+  tweet_text = parsed_item['text'] rescue nil
+  created_at = parsed_item['created_at'] rescue nil
+  event_machine::stop_event_loop if screen_name and tweet_text and created_at and yield screen_name, tweet_text, created_at
   nil
 end
 
