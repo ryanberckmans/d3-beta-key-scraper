@@ -17,10 +17,10 @@ The key G4JWYY-KPT9-RKGN8T-WY4G-WE24K9 was announced at 11:20am PDT. Our bot det
 
 The bot is running on a Small ec2 instance inside gnu screen. The key is scraped inside an eventmachine twitter-stream loop; the eventmachine then exits and the key is posted to battle.net/account using curl.
 
-### Day 1 Post-mortem
+### Day 1 post-mortem
 We were too slow. We scraped and posted the key, but someone else beat us to it :(. Let's measure and improve our speed.
 
-### Day 1 Action Items
+### Day 1 action items
 * record timestamps for key tweet, scrape, and post; the tweet timestamp will be from another clock, but might as well store it
 * post the key immediately, instead of stopping eventmachine first
 * maintain a logged-in battle.net/account session, instead of logging in, each time, before posting the key
