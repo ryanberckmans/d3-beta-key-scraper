@@ -14,7 +14,6 @@ require 'json'
 def yield_if_tweet event_machine, json_item, &block
   raise "expecting a block" unless block_given?
   parsed_item = JSON.parse json_item rescue nil
-  puts parsed_item
   screen_name = parsed_item['user']['screen_name'] rescue nil
   tweet_text = parsed_item['text'] rescue nil
   created_at = parsed_item['created_at'] rescue nil

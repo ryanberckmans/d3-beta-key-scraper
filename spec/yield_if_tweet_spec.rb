@@ -44,7 +44,7 @@ end
 def generate_tests
   for tweet_json in TWEET_JSONS
     test_description = "tweet_json: '#{tweet_json}'"
-    puts "scheduling test #{test_description}"
+    #puts "scheduling test #{test_description}"
     generate_one_test test_description, tweet_json
   end
 end
