@@ -1,0 +1,4 @@
+#!/bin/sh
+# pwd should be bin/..
+
+curl --no-buffer -s https://stream.twitter.com/1/statuses/filter.json?follow=174307074,546460454 -u`cat twitter_login` | egrep --line-buffered -oe "[a-zA-Z0-9]{6}[[:space:]-]*[a-zA-Z0-9]{4}[[:space:]-]*[a-zA-Z0-9]{6}[[:space:]-]*[a-zA-Z0-9]{4}[[:space:]-]*[a-zA-Z0-9]{6}" | xargs -L1 bin/post-d3-key

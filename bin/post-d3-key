@@ -1,0 +1,8 @@
+#!/bin/sh
+# usage: post-d3-key <key>  (key may include whitespace)
+#  assumes a logged-in battle.net account with tmp/cookie
+
+KEY="$@"
+
+curl -s --cookie tmp/cookie --data-urlencode "gameKey=$KEY" https://us.battle.net/account/management/add-game.html >> log/post-key
+echo "posted key $KEY"
