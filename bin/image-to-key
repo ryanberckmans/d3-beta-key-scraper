@@ -1,0 +1,9 @@
+#!/bin/sh
+# pwd should be bin/..
+#  usage: cat image | $0
+#   reads image on stdin, finds key using convert/tesseract-ocr, emits key on stdout
+
+TMP_CONVERTED_IMAGE=tmp/out.tif
+TMP_KEY=tmp/key # tesseract appends .txt to this file
+
+convert - -filter Lanczos -resize 300% -sharpen 2.0x $TMP_CONVERTED_IMAGE ; tesseract $TMP_CONVERTED_IMAGE $TMP_KEY ; cat $TMP_KEY.txt | tr -d '\n'
