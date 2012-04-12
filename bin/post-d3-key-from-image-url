@@ -1,0 +1,8 @@
+#!/bin/sh
+# pwd should be bin/..
+#  usage: $0 <truncated twitter image url>
+# e.g. $0 /AqQSTWCCMAAISIN.jpg   // we must prepend https://p.twimg.com
+
+IMAGE_URL="https://p.twimg.com$1"
+
+curl -s $IMAGE_URL | bin/image-to-key | bin/post-d3-key
