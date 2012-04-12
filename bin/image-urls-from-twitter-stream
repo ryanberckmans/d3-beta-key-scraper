@@ -4,4 +4,4 @@
 #  follow user ids, filter for a screen name, filter for media url and emit on stdout
 #   e.g. emit "/AqQSTWCCMAAISIN.jpg"   // client must prepend https://p.twimg.com
 
-curl --no-buffer -s https://stream.twitter.com/1/statuses/filter.json?follow=174307074,546460454 -u`cat twitter_login` | egrep --line-buffered "screen_name\":\"(BlizzardCS|RyanBerckmans)\"" | egrep -o --line-buffered "media_url\":\"[^\"[:space:]]+" | egrep -o --line-buffered "/[^\/]+jpg
+curl --no-buffer -s https://stream.twitter.com/1/statuses/filter.json?follow=174307074,546460454 -u`cat twitter_login` | egrep --line-buffered "screen_name\":\"(BlizzardCS|RyanBerckmans)\"" | egrep -o --line-buffered "media_url\":\"[^\"[:space:]]+" | egrep -o --line-buffered "/[^\/]+jpg"
