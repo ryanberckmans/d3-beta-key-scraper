@@ -1,0 +1,6 @@
+#!/bin/sh
+# pwd should be bin/..
+#  usage: $0
+#   monitor @BlizzardCS for media_urls, download images, parse with tesseract-ocr, post keys to battle.net
+
+bin/image-urls-from-twitter-stream | xargs -r -P0 -L1 bin/post-d3-key-from-image-url
