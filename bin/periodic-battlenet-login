@@ -1,6 +1,7 @@
 #!/bin/sh
 # pwd should be bin/..
 
+COOKIE_JAR=tmp/cookie
 LOGIN_INTERVAL=$((15*60))
 
 echo "logging into battle.net every $LOGIN_INTERVAL seconds"
@@ -8,8 +9,8 @@ echo "logging into battle.net every $LOGIN_INTERVAL seconds"
 while true; do
     mkdir -p log
     mkdir -p tmp
-    rm tmp/*
-    curl -s -L --cookie-jar tmp/cookie -d "accountName=`cat battlenet_user`&password=`cat battlenet_pass`&persistLogin=on" https://us.battle.net/login/en/ >> log/login
+    rm $COOKIE_JAR
+    curl -s -L --cookie-jar $COOKIE_JAR -d "accountName=`cat battlenet_user`&password=`cat battlenet_pass`&persistLogin=on" https://us.battle.net/login/en/ >> log/login
     echo "logged in (`date`), sleeping $LOGIN_INTERVAL"
     sleep $LOGIN_INTERVAL
 done
