@@ -47,6 +47,30 @@ Brainstorming sources of latency:
 
 The biggest source of controllable latency is the ruby virtual machine and our bot's dependencies. Over-engineering is an easy mistake to repeat. The bot runs in a ruby vm with gems eventmachine, twitter-stream, and json. Super overkill.
 
-The new implementation is three shell scripts totalling ~10 lines of logic (plus comments, output, and whitespace). One invocation of curl reads the stream, grep to filter, and curl (glued with xargs) to post the detected keys. Win. Maybe tomorrow we'll be competitive :).
+The new implementation is three shell scripts totalling ~10 lines of logic (plus comments, output, and whitespace). One invocation of curl reads the stream, grep to filter, and curl (glued with xargs) to post the detected keys. Win. The shell scripts will post more false positives and negatives, but stand a better chance of posting a correct key first. Maybe tomorrow we'll be competitive :).
 
+## Day 3
+_Wednesday April 11_
 
+Disaster. @BlizzardCS took heed of the community's outcry against bots, and started posting keys embedded in images. Some customer service, our bots have rights too :'D.
+
+Maybe Blizzard's shift to images will cut out some of the bot competition. We've started plugging ocr (optical character recognition) into our bot.
+
+getting ocr working
+ - tesseract-ocr
+ - requires tif -> convert
+ - naive ocr: failure
+ - using convert & tesseract options to win:
+ - anchoring charset to 0-9A-Z-
+ - convert options: resize (cubic, adaptive-resize, liquid-rescale, Lanczos), sharpen 1.0-3.0x
+ - goal: 100% accuracy on previous two posted keys, with < 4s runtime for convert/ocr
+ - settled on Lanczos resize with sharpen 2.0x, matches both keys with about 1.5s runtime for convert/ocr. not using key-charset
+ - if ocr issues occur tomorrow, will enable key-charset and sharpen 2.0x -> 3.0x
+ - created bin/ocr-test
+ 
+getting input url
+ - took me awhile to realize media_url contains exact url; I was looking at search output (easier for historical) but it is a legacy schema compared to stream api
+ - it's working!
+ - DO use key_charset.txt and -sharpen 3.0 as I'm worried to mis-recognize.. if we lose on speed we'll make it faster
+
+BAM.. bin/ocr-d3-activate works
