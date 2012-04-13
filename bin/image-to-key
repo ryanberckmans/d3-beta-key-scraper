@@ -7,4 +7,4 @@ UID=`date +%N`
 TMP_CONVERTED_IMAGE=tmp/$UID.tif
 TMP_KEY=tmp/$UID # tesseract appends .txt to this file
 
-convert - -filter Lanczos -resize 300% -sharpen 3.0x $TMP_CONVERTED_IMAGE ; tesseract $TMP_CONVERTED_IMAGE $TMP_KEY nobatch key-charset.txt 2> /dev/null ; cat $TMP_KEY.txt | tr -d '\n' | bin/common-ocr-errors
+convert - -sharpen 1.0x -filter Lanczos -resize 300% -sharpen 3.0x $TMP_CONVERTED_IMAGE ; tesseract $TMP_CONVERTED_IMAGE $TMP_KEY nobatch key-charset.txt 2> /dev/null ; cat $TMP_KEY.txt | tr -d '\n' | bin/common-ocr-errors

@@ -1,4 +1,4 @@
 #!/bin/sh
 # pragmatic substitutions of common ocr errors
 
-sed --unbuffered 's/IVI/M/'
+sed --unbuffered 's/IVI/M/g'
