@@ -3,7 +3,7 @@
 # converts ocr-test/*.jpg into keys and verifies each key matches the filename (where the filename is the correct key described by the image)
 
 for IMAGE_FILE in `ls ocr-test/*.jpg`; do 
-    KEY=`cat $IMAGE_FILE | bin/image-to-key`; 
+    KEY=`cat $IMAGE_FILE | bin/image-to-key | tr -d ' '`; 
     if [ $IMAGE_FILE = "ocr-test/$KEY.jpg" ]; then 
         echo -n "PASS"; 
     else 
